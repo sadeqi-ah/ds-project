@@ -6,8 +6,8 @@ const rootPath = path.resolve(__dirname, '..')
 module.exports = {
     resolve: {
         alias: {
-            _: srcPaths('src'),
-            _public: srcPaths('public'),
+            _: path.resolve(rootPath, 'src'),
+            _public: path.resolve(rootPath, 'public'),
         },
         extensions: ['.tsx', '.ts', '.js'],
         mainFields: ['main', 'module', 'browser']
