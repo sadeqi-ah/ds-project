@@ -8,6 +8,10 @@
     "sourceMap": true,
     "outDir": "./dist",
     "strict": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "paths": {
+      "_/*": ["./src/*"],
+      "_public/*": ["./public/*"]
+    }
   }
 }
