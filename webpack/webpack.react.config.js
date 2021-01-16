@@ -1,5 +1,6 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const CopyPlugin = require("copy-webpack-plugin");
 
 const rootPath = path.resolve(__dirname, '..')
 
@@ -31,11 +32,15 @@ module.exports = {
                     'css-loader',
                     'sass-loader'
                 ]
-            }
+            },
+            {
+                test: /\.(png|jpg|gif)$/i,
+                type: 'asset/resource',
+            },
         ]
     },
     devServer: {
-        contentBase: path.join(rootPath, 'dist/renderer'),
+        contentBase: path.join(rootPath, 'dist', 'renderer'),
         historyApiFallback: true,
         compress: true,
         hot: true,
@@ -44,11 +49,17 @@ module.exports = {
         publicPath: '/'
     },
     output: {
-        path: path.resolve(rootPath, 'dist/renderer'),
+        path: path.resolve(rootPath, 'dist', 'renderer'),
         filename: 'js/[name].js',
         publicPath: './'
     },
     plugins: [
-        new HtmlWebpackPlugin()
+        new HtmlWebpackPlugin(),
+        new CopyPlugin({
+            patterns: [
+                { from: path.resolve(rootPath, "src", "images"), to: "images" }
+            ],
+        })
+
     ]
 }
