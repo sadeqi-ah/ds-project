@@ -1,0 +1,51 @@
+.student-container {
+    width: calc(400px - 48px);
+    display: flex;
+    padding: 15px 24px;
+    transition: 0.2s;
+    cursor: pointer;
+
+    &:hover {
+        background-color: #f8fafe;
+    }
+
+    .photo {
+        width: 50px;
+        height: 50px;
+        border-radius: 50px;
+        overflow: hidden;
+
+        img {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+        }
+    }
+
+    .information {
+        padding: 0 20px;
+        p {
+            &:first-child {
+                font-weight: 700;
+                font-size: 17px;
+                color: #292d33;
+            }
+            &:last-child {
+                line-height: 16px;
+                font-size: 14px;
+                color: #c8c9cc;
+                span {
+                    font-size: 12px;
+                    font-weight: 300;
+                }
+            }
+        }
+    }
+}
+
+.line {
+    width: 70%;
+    height: 2px;
+    background-color: #f8fafe;
+    margin: auto;
+}
