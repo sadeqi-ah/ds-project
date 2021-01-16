@@ -6,8 +6,8 @@ let mainWindow: Electron.BrowserWindow | null;
 
 function createWindow() {
   mainWindow = new BrowserWindow({
-    width: 1100,
-    height: 700,
+    width: 400,
+    height: 600,
     frame: false,
     // transparent: true,
     resizable: false,

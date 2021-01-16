@@ -1,6 +1,7 @@
 import React from "react";
 import "_/styles/Titlebar.scss";
 import { remote } from "electron";
+
 const win = remote.getCurrentWindow();
 
 const Titlebar: React.FC = () => {

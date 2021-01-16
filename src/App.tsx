@@ -1,8 +1,12 @@
 import React from "react";
 import { render } from "react-dom";
+
+import "./styles/global.scss";
+import { HashRouter, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import Student from "./pages/Student";
 import Layout from "./components/Layout";
 import Titlebar from "./components/Titlebar";
-import "./styles/global.scss";
 
 const mainElement = document.createElement("div");
 mainElement.setAttribute("id", "root");
@@ -12,6 +16,10 @@ const App = () => {
   return (
     <Layout>
       <Titlebar />
+      <HashRouter>
+        <Route path="/" exact component={Home} />
+        <Route path="/student" exact component={Student} />
+      </HashRouter>
     </Layout>
   );
 };
