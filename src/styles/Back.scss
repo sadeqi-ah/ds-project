@@ -1,0 +1,16 @@
+.back-btn {
+    padding: 0 20px;
+
+    svg {
+        padding: 8px;
+        width: 26px;
+        height: 26px;
+        fill: #292d33;
+        border-radius: 50%;
+        transition: 0.2s;
+
+        &:hover {
+            background-color: #292d332a;
+        }
+    }
+}
