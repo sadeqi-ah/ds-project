@@ -9,7 +9,7 @@ module.exports = {
             _: path.resolve(rootPath, 'src'),
             _public: path.resolve(rootPath, 'public'),
         },
-        extensions: ['.tsx', '.ts', '.js'],
+        extensions: ['.tsx', '.ts', '.js', '.scss'],
         mainFields: ['main', 'module', 'browser']
     },
     entry: path.resolve(rootPath, 'src', 'App.tsx'),
@@ -18,11 +18,19 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.(js|ts|tsx)$/,
+                test: /\.(js|ts|tsx)$/i,
                 exclude: /node_modules/,
                 use: {
                     loader: 'babel-loader'
                 }
+            },
+            {
+                test: /\.scss$/i,
+                use: [
+                    'style-loader',
+                    'css-loader',
+                    'sass-loader'
+                ]
             }
         ]
     },

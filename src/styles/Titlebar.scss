@@ -1,0 +1,50 @@
+.titlebar {
+    height: 30px;
+    padding: 0 10px;
+    // background-color: rgba(0, 0, 0, 0.123);
+    -webkit-app-region: drag;
+
+    .right-sec {
+        height: 100%;
+        float: right;
+        display: flex;
+        -webkit-app-region: no-drag;
+
+        .close-btn {
+            width: 30px;
+            height: 30px;
+            fill: #ebedf0;
+            display: flex;
+            justify-content: center;
+            cursor: pointer;
+            transition: 0.1s;
+
+            &:hover {
+                fill: #e63946;
+            }
+
+            svg {
+                width: 12px;
+            }
+        }
+
+        .minimize-btn {
+            width: 30px;
+            height: 30px;
+            fill: #ebedf0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: 0.1s;
+
+            &:hover {
+                fill: #82878f;
+            }
+
+            svg {
+                width: 15px;
+            }
+        }
+    }
+}
