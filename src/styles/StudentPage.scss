@@ -1,0 +1,51 @@
+.studetn-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .photo {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        overflow: hidden;
+
+        img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+        }
+    }
+    .name {
+        color: #292d33;
+        font-size: 19px;
+        font-weight: 700;
+        padding: 10px 0;
+    }
+
+    .box-info {
+        width: 75%;
+        background-color: #f9fafd;
+        text-align: center;
+        padding: 15px 0;
+        margin: 10px 0;
+        border-radius: 10px;
+
+        span {
+            &:first-child {
+                color: #c8c9cc;
+                font-size: 13px;
+            }
+
+            &:last-child {
+                color: #8b8d90;
+            }
+        }
+    }
+
+    .action-btn {
+        display: flex;
+        flex-direction: row;
+        & > div {
+            margin: 10px;
+        }
+    }
+}
