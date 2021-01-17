@@ -13,5 +13,6 @@
       "_/*": ["./src/*"],
       "_public/*": ["./public/*"]
     }
-  }
+  },
+  "exclude": ["node_modules", "**/*.spec.ts"]
 }
