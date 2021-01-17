@@ -1,0 +1,23 @@
+.floatin-btn {
+    width: 55px;
+    height: 55px;
+    background-color: #a06cd5;
+    position: fixed;
+    z-index: 1000;
+    bottom: 30px;
+    right: 25px;
+    border-radius: 50%;
+    box-shadow: 0 15px 20px #a06cd562;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.1s;
+
+    &:hover {
+        background-color: #8050af;
+    }
+
+    svg {
+        width: 20px;
+    }
+}
