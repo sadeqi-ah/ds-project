@@ -1,36 +1,33 @@
-import React from "react";
-import { Scrollbars } from "react-custom-scrollbars";
+import React, { useEffect, useState } from "react";
+import { useStudent } from "_/hooks/useStudent";
+import { Student } from "../../model/Student";
 import ScrollLayout from "./ScrollLayout";
-import Student from "./Student";
+import StudentComponent from "./Student";
 
 const StudentList: React.FC = () => {
+  const { students, addStudent } = useStudent();
+  const [state, setstate] = useState<Student[]>([]);
+
+  useEffect(() => {
+    setstate(students);
+  }, [students]);
+
+  const convertStudentsToNode = () => {
+    const studentList = state;
+    return studentList.map((student) => (
+      <StudentComponent
+        key={student.studentId}
+        name={student.name}
+        studentId={student.studentId}
+        photo={"1.jpg"}
+      />
+    ));
+  };
+
   return (
     <ScrollLayout width={"100%"} height={"calc(100vh - 100px)"}>
-      <Student name="Matin Habibi" studentId="980122681001" photo="1.jpg" />
-      <Student name="Matin Habibi" studentId="980122681001" photo="1.jpg" />
-      <Student name="Matin Habibi" studentId="980122681001" photo="1.jpg" />
-      <Student name="Matin Habibi" studentId="980122681001" photo="1.jpg" />
-      <Student name="Matin Habibi" studentId="980122681001" photo="1.jpg" />
-      <Student name="Matin Habibi" studentId="980122681001" photo="1.jpg" />
-      <Student name="Matin Habibi" studentId="980122681001" photo="1.jpg" />
-      <Student name="Matin Habibi" studentId="980122681001" photo="1.jpg" />
-      <Student name="Matin Habibi" studentId="980122681001" photo="1.jpg" />
-      <Student name="Matin Habibi" studentId="980122681001" photo="1.jpg" />
-      <Student name="Matin Habibi" studentId="980122681001" photo="1.jpg" />
+      {convertStudentsToNode()}
     </ScrollLayout>
-    // <Scrollbars style={{ width: "100%", height: "calc(100vh - 100px)" }}>
-    //   <Student name="Matin Habibi" studentId="980122681001" photo="1.jpg" />
-    //   <Student name="Matin Habibi" studentId="980122681001" photo="1.jpg" />
-    //   <Student name="Matin Habibi" studentId="980122681001" photo="1.jpg" />
-    //   <Student name="Matin Habibi" studentId="980122681001" photo="1.jpg" />
-    //   <Student name="Matin Habibi" studentId="980122681001" photo="1.jpg" />
-    //   <Student name="Matin Habibi" studentId="980122681001" photo="1.jpg" />
-    //   <Student name="Matin Habibi" studentId="980122681001" photo="1.jpg" />
-    //   <Student name="Matin Habibi" studentId="980122681001" photo="1.jpg" />
-    //   <Student name="Matin Habibi" studentId="980122681001" photo="1.jpg" />
-    //   <Student name="Matin Habibi" studentId="980122681001" photo="1.jpg" />
-    //   <Student name="Matin Habibi" studentId="980122681001" photo="1.jpg" />
-    // </Scrollbars>
   );
 };
 
