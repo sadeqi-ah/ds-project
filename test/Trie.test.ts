@@ -50,3 +50,19 @@ test("autoComplete() - 2", () => {
   ll.add("980122681004");
   expect(trie.autoComplete("980122681")).toEqual(ll);
 });
+
+test("autoComplete() after delete", () => {
+  const trie = new Trie();
+  trie.insert("980122681003", 19);
+  trie.insert("980122681004", 19);
+  trie.insert("980122681002", 19);
+  trie.insert("980122680001", 19);
+  trie.insert("980122680003", 19);
+
+  trie.remove("980122681003");
+
+  const ll = new LinkedList<string>();
+  ll.add("980122681002");
+  ll.add("980122681004");
+  expect(trie.autoComplete("980122681")).toEqual(ll);
+});

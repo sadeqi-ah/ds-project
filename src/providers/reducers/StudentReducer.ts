@@ -9,10 +9,14 @@ export function studentReducer(
   action: Action<Student>
 ): Student[] {
   const { type, payload } = action;
-  console.log(1);
   switch (type) {
     case types.ADD_STUDENT:
       return [...state, payload];
+    case types.DELETE_STUDENT:
+      const newState = state;
+      return newState.filter(
+        (student) => student.studentId !== payload.studentId
+      );
     case types.CLEAR:
       return initialState;
     default:

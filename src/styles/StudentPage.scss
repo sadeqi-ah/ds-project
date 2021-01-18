@@ -44,8 +44,10 @@
     .action-btn {
         display: flex;
         flex-direction: row;
-        & > div {
+        & > div,
+        & > a {
             margin: 10px;
+            display: block;
         }
     }
 }

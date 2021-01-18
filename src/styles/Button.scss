@@ -1,11 +1,12 @@
 .button {
-    display: flex;
-    padding: 10px 20px;
     border-radius: 8px;
     font-weight: 500;
     cursor: pointer;
     position: relative;
     overflow: hidden;
+    display: inline-block;
+    display: flex !important;
+    flex-direction: row;
 
     &:hover .bc {
         opacity: 0.25;
@@ -29,9 +30,12 @@
         z-index: 2;
     }
 
+    .btn-title {
+        margin-left: 5px;
+    }
+
     svg {
         width: 20px;
         height: 20px;
-        margin-right: 5px;
     }
 }

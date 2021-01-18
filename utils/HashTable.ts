@@ -94,6 +94,6 @@ export class HashTable<T> {
   }
 
   private indexFor(key: number): number {
-    return key;
+    return key % this.capacity;
   }
 }

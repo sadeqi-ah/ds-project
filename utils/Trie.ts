@@ -32,6 +32,33 @@ export class Trie {
     nc.hash = hash;
   }
 
+  remove(key: string) {
+    this._remove(this.root, key, 0);
+  }
+
+  private _remove(currentRoot: TrieNode, key: string, index: number): boolean {
+    if (index == key.length) {
+      if (currentRoot.hash == -1) {
+        return false;
+      }
+      currentRoot.hash = -1;
+      return currentRoot.children.length > 0;
+    }
+
+    const node = currentRoot.children[parseInt(key.charAt(index))];
+    if (node == null) {
+      return false;
+    }
+
+    const result = this._remove(node, key, index + 1) && node.hash != -1;
+    if (result) {
+      delete currentRoot.children[parseInt(key.charAt(index))];
+      return currentRoot.children.length > 0;
+    }
+
+    return false;
+  }
+
   search(key: string): TrieNode | null {
     let nc = this.root;
 

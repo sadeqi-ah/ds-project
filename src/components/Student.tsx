@@ -10,7 +10,7 @@ export type StudentProps = {
 
 const Student: React.FC<StudentProps> = ({ name, photo, studentId }) => {
   return (
-    <Link to="/student">
+    <Link to={`/student/${studentId}`}>
       <div className="student-container">
         <div className="photo">
           <img src={`./../images/student/${photo}`} />
