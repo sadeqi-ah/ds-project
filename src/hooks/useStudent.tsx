@@ -22,7 +22,7 @@ export const useStudent = () => {
   });
 
   const addStudent = (student: Student): void => {
-    dispatch({ type: types.ADD_STUDENT, payload: student });
+    // dispatch({ type: types.ADD_STUDENT, payload: student });
     addStudentToHashTable(student);
     addStudentToTrie(student.studentId, student.hashCode());
   };
@@ -36,10 +36,23 @@ export const useStudent = () => {
   };
 
   const removeStudent = (student: Student): void => {
-    dispatch({ type: types.DELETE_STUDENT, payload: student });
+    // dispatch({ type: types.DELETE_STUDENT, payload: student });
     trie.remove(student.studentId);
     hashtable.remove(student.hashCode());
   };
 
-  return { students, addStudent, getStudent, removeStudent };
+  const search = (prefix: string) => {
+    let st = trie.autoComplete(prefix)?.getHead();
+    const studentList: Student[] = [];
+    if (st) {
+      while (st) {
+        const stu = hashtable.get(st.data);
+        if (stu) studentList.push(stu);
+        st = st.next;
+      }
+    }
+    dispatch({ type: types.ADD_STUDENT, payload: studentList });
+  };
+
+  return { students, addStudent, getStudent, removeStudent, search };
 };

@@ -2,14 +2,21 @@ import { LinkedList } from "./LinkedList";
 
 class TrieNode {
   public children: TrieNode[];
-  public isLeaf: boolean;
   public hash: number;
 
   constructor() {
     this.children = new Array(10);
-    this.isLeaf = false;
     this.hash = -1;
   }
+
+  // isLeaf() {
+  //   for (let i = 0; i < 10; i++) {
+  //     if (this.children) {
+  //       return false;
+  //     }
+  //   }
+  //   return true;
+  // }
 }
 
 export class Trie {
@@ -28,7 +35,6 @@ export class Trie {
       }
       nc = nc.children[parseInt(index)];
     });
-    nc.isLeaf = true;
     nc.hash = hash;
   }
 
@@ -72,30 +78,30 @@ export class Trie {
     return nc;
   }
 
-  autoComplete(key: string, max: number = 50): LinkedList<string> | string {
+  autoComplete(key: string, max: number = 50): LinkedList<number> | null {
     if (key == "") return this._autoComplete(this.root, key, max);
 
     let node = this.search(key);
-    if (node && !node.isLeaf) {
+    if (node) {
       return this._autoComplete(node as TrieNode, key, max);
     }
 
-    return key;
+    return null;
   }
 
   private _autoComplete(
     node: TrieNode,
     currentStr: string,
     max: number,
-    result: LinkedList<string> = new LinkedList<string>()
-  ): LinkedList<string> {
+    result: LinkedList<number> = new LinkedList<number>()
+  ): LinkedList<number> {
     if (node.hash != -1 && result.size() < max) {
-      result.add(currentStr);
+      result.add(node.hash);
     }
-    if (node.isLeaf || result.size() === max) return result;
+    if (result.size() === max) return result;
 
     for (let i = 0; i < 10; i++) {
-      if (node.children[i] != null) {
+      if (node.children[i]) {
         // append current number to currentStr string
         const temp = `${currentStr}${i}`;
         result = this._autoComplete(node.children[i], temp, max, result);

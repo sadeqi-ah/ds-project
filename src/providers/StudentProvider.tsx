@@ -6,7 +6,7 @@ import { Action } from "./types";
 
 export const StudentsContext = createContext<Student[]>([]);
 export const StudentsDispatchContext = createContext<
-  React.Dispatch<Action<Student>>
+  React.Dispatch<Action<Student[]>>
 >(() => {});
 
 const StudentProvider: React.FC = ({ children }) => {

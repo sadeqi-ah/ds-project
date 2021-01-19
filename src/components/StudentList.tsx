@@ -5,11 +5,11 @@ import ScrollLayout from "./ScrollLayout";
 import StudentComponent from "./Student";
 
 const StudentList: React.FC = () => {
-  const { students, addStudent } = useStudent();
-  const [state, setstate] = useState<Student[]>([]);
+  const { students } = useStudent();
+  const [state, setState] = useState<Student[]>([]);
 
   useEffect(() => {
-    setstate(students);
+    setState(students);
   }, [students]);
 
   const convertStudentsToNode = () => {

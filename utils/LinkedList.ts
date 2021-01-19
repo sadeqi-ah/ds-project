@@ -120,4 +120,8 @@ export class LinkedList<E> {
       return;
     }
   }
+
+  getHead() {
+    return this.head;
+  }
 }
