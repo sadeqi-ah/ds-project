@@ -72,11 +72,12 @@ export class Trie {
     return nc;
   }
 
-  autoComplete(key: string): LinkedList<string> | string {
-    let node = this.search(key);
+  autoComplete(key: string, max: number = 50): LinkedList<string> | string {
+    if (key == "") return this._autoComplete(this.root, key, max);
 
+    let node = this.search(key);
     if (node && !node.isLeaf) {
-      return this._autoComplete(node as TrieNode, key, null);
+      return this._autoComplete(node as TrieNode, key, max);
     }
 
     return key;
@@ -85,19 +86,19 @@ export class Trie {
   private _autoComplete(
     node: TrieNode,
     currentStr: string,
-    result: LinkedList<string> | null
+    max: number,
+    result: LinkedList<string> = new LinkedList<string>()
   ): LinkedList<string> {
-    if (result == null) result = new LinkedList<string>();
-
-    if (node.hash != -1) result.add(currentStr);
-
-    if (node.isLeaf) return result;
+    if (node.hash != -1 && result.size() < max) {
+      result.add(currentStr);
+    }
+    if (node.isLeaf || result.size() === max) return result;
 
     for (let i = 0; i < 10; i++) {
       if (node.children[i] != null) {
         // append current number to currentStr string
         const temp = `${currentStr}${i}`;
-        result = this._autoComplete(node.children[i], temp, result);
+        result = this._autoComplete(node.children[i], temp, max, result);
       }
     }
 
