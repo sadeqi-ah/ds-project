@@ -97,21 +97,19 @@ const EditableStudent: React.FC = () => {
           </svg>
         </Button>
       </div>
-      <div className="input-s">
-        <span>name : </span>
-        <input type="text" onChange={nameInputHandler} />
-      </div>
-      <div className="input-s">
-        <span>Student Id : </span>
-        <input type="text" onChange={studentIdInputHandler} />
-      </div>
-      <div className="input-s">
-        <span>gpa : </span>
-        <input type="number" onChange={gpaInputHandler} />
-      </div>
-      <div className="input-s">
-        <span>field :</span>
-        <input type="text" onChange={fieldInputHandler} />
+      <div className="inputs">
+        <div className="lables">
+          <span>name : </span>
+          <span>Student Id : </span>
+          <span>gpa : </span>
+          <span>field :</span>
+        </div>
+        <div className="input-s">
+          <input type="text" onChange={nameInputHandler} />
+          <input type="number" onChange={studentIdInputHandler} />
+          <input type="number" onChange={gpaInputHandler} />
+          <input type="text" onChange={fieldInputHandler} />
+        </div>
       </div>
       <Button title="submit" color="#2EC4B6" onClick={submit}>
         <svg
