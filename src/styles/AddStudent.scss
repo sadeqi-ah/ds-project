@@ -55,6 +55,16 @@
                     background-color: #ffffff;
                     border: 2px solid #f0f0f3;
                 }
+
+                &.error {
+                    background-color: #fde5e8;
+                    border: 2px solid #ef233c;
+
+                    &:focus {
+                        background-color: #fde5e8;
+                        border: 2px solid #ef233c;
+                    }
+                }
             }
         }
     }

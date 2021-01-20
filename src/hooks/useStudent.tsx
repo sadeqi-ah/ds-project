@@ -54,5 +54,18 @@ export const useStudent = () => {
     dispatch({ type: types.ADD_STUDENT, payload: studentList });
   };
 
-  return { students, addStudent, getStudent, removeStudent, search };
+  const checkExist = (studentId: string) => {
+    const st = trie.search(studentId);
+    if (!st) return false;
+    return st.hash !== -1;
+  };
+
+  return {
+    students,
+    addStudent,
+    getStudent,
+    removeStudent,
+    search,
+    checkExist,
+  };
 };

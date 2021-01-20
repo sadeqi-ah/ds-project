@@ -3,22 +3,40 @@ import Button from "./Button";
 import "_/styles/AddStudent.scss";
 import { Student } from "../../model/Student";
 import { useStudent } from "_/hooks/useStudent";
+import { useHistory } from "react-router-dom";
+import { remote } from "electron";
+import path from "path";
 
 type InputsType = {
+  photo: string;
   name: string;
   studentId: string;
   gpa: number;
   field: string;
 };
 
+type ErrorType = {
+  name: boolean;
+  studentId: boolean;
+  field: boolean;
+};
+
 const EditableStudent: React.FC = () => {
-  const { addStudent } = useStudent();
+  const { addStudent, checkExist } = useStudent();
+  const history = useHistory();
 
   const [state, setstate] = useState<InputsType>({
+    photo: "",
     name: "",
     studentId: "",
     gpa: 0,
     field: "",
+  });
+
+  const [error, setError] = useState<ErrorType>({
+    name: false,
+    studentId: false,
+    field: false,
   });
 
   const nameInputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -62,14 +80,62 @@ const EditableStudent: React.FC = () => {
   };
 
   const submit = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    const isValidStudentId =
+      Boolean(state.studentId) && !checkExist(state.studentId);
+
+    if (!state.name || !state.field || !isValidStudentId) {
+      setError({
+        name: !Boolean(state.name),
+        studentId: !isValidStudentId,
+        field: !Boolean(state.field),
+      });
+      return;
+    }
+
+    setError({
+      name: false,
+      studentId: false,
+      field: false,
+    });
     const newStudent = new Student(
       state.name,
       state.studentId,
       state.gpa,
       state.field
     );
-
     addStudent(newStudent);
+    history.push("/");
+  };
+
+  const uploadPhoto = () => {
+    const dialog = remote.dialog;
+
+    dialog
+      .showOpenDialog({
+        title: "Select the photo to be uploaded",
+        buttonLabel: "Upload",
+        filters: [
+          {
+            name: "Images",
+            extensions: ["jpg", "png", "gif"],
+          },
+        ],
+        properties: ["openFile"],
+      })
+      .then((file) => {
+        console.log(file.canceled);
+        if (!file.canceled) {
+          setstate((prev) => {
+            return {
+              ...prev,
+              photo: file.filePaths[0].toString(),
+            };
+          });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
@@ -85,9 +151,11 @@ const EditableStudent: React.FC = () => {
           </svg>
         </Button>
         <div className="photo">
-          <img src="./../images/student/1.jpg" />
+          <img
+            src={state.photo ? state.photo : "./../images/student/template.jpg"}
+          />
         </div>
-        <Button color="#642CEA">
+        <Button color="#642CEA" onClick={uploadPhoto}>
           <svg
             style={{ width: 12, height: 12 }}
             viewBox="0 0 12 11"
@@ -105,10 +173,22 @@ const EditableStudent: React.FC = () => {
           <span>field :</span>
         </div>
         <div className="input-s">
-          <input type="text" onChange={nameInputHandler} />
-          <input type="number" onChange={studentIdInputHandler} />
+          <input
+            type="text"
+            className={error.name ? "error" : ""}
+            onChange={nameInputHandler}
+          />
+          <input
+            type="number"
+            className={error.studentId ? "error" : ""}
+            onChange={studentIdInputHandler}
+          />
           <input type="number" onChange={gpaInputHandler} />
-          <input type="text" onChange={fieldInputHandler} />
+          <input
+            type="text"
+            className={error.field ? "error" : ""}
+            onChange={fieldInputHandler}
+          />
         </div>
       </div>
       <Button title="submit" color="#2EC4B6" onClick={submit}>
