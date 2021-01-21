@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import Button from "./Button";
 import "_/styles/AddStudent.scss";
 import { Student } from "../../model/Student";
@@ -6,6 +6,7 @@ import { useStudent } from "_/hooks/useStudent";
 import { useHistory } from "react-router-dom";
 import { remote } from "electron";
 import path from "path";
+import EditStudent from "_/pages/EditStudent";
 
 type InputsType = {
   photo: string;
@@ -21,9 +22,20 @@ type ErrorType = {
   field: boolean;
 };
 
-const EditableStudent: React.FC = () => {
-  const { addStudent, checkExist } = useStudent();
+type Props = {
+  studentId?: string;
+};
+
+const EditableStudent: React.FC<Props> = ({ studentId }) => {
+  const { addStudent, checkExist, getStudent, editStudent } = useStudent();
   const history = useHistory();
+
+  const oldstudent = useMemo(() => {
+    if (studentId) {
+      return getStudent(studentId);
+    }
+    return undefined;
+  }, [studentId]);
 
   const [state, setstate] = useState<InputsType>({
     photo: "",
@@ -38,6 +50,18 @@ const EditableStudent: React.FC = () => {
     studentId: false,
     field: false,
   });
+
+  useEffect(() => {
+    if (oldstudent) {
+      setstate({
+        name: oldstudent.name,
+        studentId: oldstudent.studentId,
+        gpa: oldstudent.gpa,
+        field: oldstudent.field,
+        photo: "",
+      });
+    }
+  }, []);
 
   const nameInputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const target = e.target as HTMLInputElement;
@@ -103,7 +127,12 @@ const EditableStudent: React.FC = () => {
       state.gpa,
       state.field
     );
-    addStudent(newStudent);
+
+    if (oldstudent) {
+      editStudent(newStudent, oldstudent);
+    } else {
+      addStudent(newStudent);
+    }
     history.push("/");
   };
 
@@ -177,17 +206,24 @@ const EditableStudent: React.FC = () => {
             type="text"
             className={error.name ? "error" : ""}
             onChange={nameInputHandler}
+            value={state.name}
           />
           <input
             type="number"
             className={error.studentId ? "error" : ""}
             onChange={studentIdInputHandler}
+            value={state.studentId ? state.studentId : ""}
           />
-          <input type="number" onChange={gpaInputHandler} />
+          <input
+            type="number"
+            onChange={gpaInputHandler}
+            value={state.gpa ? state.gpa : ""}
+          />
           <input
             type="text"
             className={error.field ? "error" : ""}
             onChange={fieldInputHandler}
+            value={state.field}
           />
         </div>
       </div>

@@ -60,6 +60,11 @@ export const useStudent = () => {
     return st.hash !== -1;
   };
 
+  const editStudent = (newStudent: Student, oldStudent: Student) => {
+    removeStudent(oldStudent);
+    addStudent(newStudent);
+  };
+
   return {
     students,
     addStudent,
@@ -67,5 +72,6 @@ export const useStudent = () => {
     removeStudent,
     search,
     checkExist,
+    editStudent,
   };
 };
