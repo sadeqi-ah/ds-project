@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect } from "react";
 import {
   StudentsContext,
   StudentsDispatchContext,
@@ -22,7 +22,6 @@ export const useStudent = () => {
   });
 
   const addStudent = (student: Student): void => {
-    // dispatch({ type: types.ADD_STUDENT, payload: student });
     addStudentToHashTable(student);
     addStudentToTrie(student.studentId, student.hashCode());
   };
@@ -36,7 +35,6 @@ export const useStudent = () => {
   };
 
   const removeStudent = (student: Student): void => {
-    // dispatch({ type: types.DELETE_STUDENT, payload: student });
     trie.remove(student.studentId);
     hashtable.remove(student.hashCode());
   };
