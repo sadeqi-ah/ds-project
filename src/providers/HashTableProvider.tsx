@@ -1,4 +1,4 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import { Student } from "../../model/Student";
 import { HashTable } from "../../utils/HashTable";
 import { Trie } from "../../utils/Trie";

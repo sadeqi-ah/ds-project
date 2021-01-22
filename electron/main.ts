@@ -1,5 +1,6 @@
 import { app, BrowserWindow, ipcMain } from "electron";
 import * as path from "path";
+import * as fs from "fs";
 import * as url from "url";
 
 let mainWindow: Electron.BrowserWindow | null;
@@ -54,3 +55,15 @@ app.on("activate", () => {
 
 app.on("ready", createWindow);
 app.allowRendererProcessReuse = true;
+
+ipcMain.on("upload_photo", (event, photo, studentId) => {
+  const profileDir = path.join(__dirname, "..", "src", "images", "student");
+  const extension = photo.split(".").pop();
+  const fileName = `${studentId}.${extension}`;
+  const filePath = path.join(profileDir, fileName);
+  if (fs.existsSync(filePath)) {
+    fs.unlinkSync(filePath);
+  }
+  fs.copyFileSync(photo, filePath);
+  console.log(photo, studentId, extension);
+});

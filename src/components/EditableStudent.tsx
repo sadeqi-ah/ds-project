@@ -5,11 +5,14 @@ import { Student } from "../../model/Student";
 import { useStudent } from "_/hooks/useStudent";
 import { useHistory } from "react-router-dom";
 import { remote } from "electron";
-import path from "path";
-import EditStudent from "_/pages/EditStudent";
+import { ipcRenderer } from "electron";
 
 type InputsType = {
-  photo: string;
+  photo: {
+    base64?: string;
+    url: string;
+    extension?: string;
+  };
   name: string;
   studentId: string;
   gpa: number;
@@ -38,7 +41,7 @@ const EditableStudent: React.FC<Props> = ({ studentId }) => {
   }, [studentId]);
 
   const [state, setstate] = useState<InputsType>({
-    photo: "",
+    photo: { url: "" },
     name: "",
     studentId: "",
     gpa: 0,
@@ -58,7 +61,7 @@ const EditableStudent: React.FC<Props> = ({ studentId }) => {
         studentId: oldstudent.studentId,
         gpa: oldstudent.gpa,
         field: oldstudent.field,
-        photo: "",
+        photo: { url: "" },
       });
     }
   }, []);
@@ -125,13 +128,19 @@ const EditableStudent: React.FC<Props> = ({ studentId }) => {
       state.name,
       state.studentId,
       state.gpa,
-      state.field
+      state.field,
+      state.photo.base64
+        ? `${state.studentId}.${state.photo.extension}`
+        : state.photo.url
     );
 
     if (oldstudent) {
       editStudent(newStudent, oldstudent);
     } else {
       addStudent(newStudent);
+    }
+    if (state.photo.base64) {
+      ipcRenderer.send("upload_photo", state.photo.url, newStudent.studentId);
     }
     history.push("/");
   };
@@ -152,12 +161,25 @@ const EditableStudent: React.FC<Props> = ({ studentId }) => {
         properties: ["openFile"],
       })
       .then((file) => {
-        console.log(file.canceled);
+        const ex: {
+          [key: string]: string;
+        } = {
+          "/": "jpeg",
+          i: "png",
+          R: "gif",
+        };
+
         if (!file.canceled) {
+          const fs = remote.require("fs");
+          const base64 = fs.readFileSync(file.filePaths[0]).toString("base64");
           setstate((prev) => {
             return {
               ...prev,
-              photo: file.filePaths[0].toString(),
+              photo: {
+                base64,
+                url: file.filePaths[0].toString(),
+                extension: ex[base64.charAt(0)],
+              },
             };
           });
         }
@@ -165,6 +187,16 @@ const EditableStudent: React.FC<Props> = ({ studentId }) => {
       .catch((err) => {
         console.log(err);
       });
+  };
+
+  const getPhoto = () => {
+    if (state.photo.base64) {
+      return `data:image/${state.photo.extension};base64,${state.photo.base64}`;
+    } else if (state.photo.url !== "") {
+      return `../images/student/${state.photo.url}`;
+    } else {
+      return "./../images/student/template.jpg";
+    }
   };
 
   return (
@@ -180,9 +212,7 @@ const EditableStudent: React.FC<Props> = ({ studentId }) => {
           </svg>
         </Button>
         <div className="photo">
-          <img
-            src={state.photo ? state.photo : "./../images/student/template.jpg"}
-          />
+          <img src={getPhoto()} />
         </div>
         <Button color="#642CEA" onClick={uploadPhoto}>
           <svg

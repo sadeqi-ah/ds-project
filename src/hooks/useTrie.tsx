@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { TrieContext, TrieDispatchContext } from "_/providers/TrieProvider";
 
 const useTrie = () => {

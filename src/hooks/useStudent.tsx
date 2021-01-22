@@ -4,6 +4,7 @@ import {
   StudentsDispatchContext,
 } from "_/providers/StudentProvider";
 import { Student } from "../../model/Student";
+import { Trie } from "../../utils/Trie";
 
 import * as types from "./../providers/reducers/types";
 import useHashTable from "./useHashTable";
@@ -18,8 +19,9 @@ export const useStudent = () => {
 
   useEffect(() => {
     console.log(hashtable.size());
-    console.log(trie);
-  });
+    // const jsdsf = JSON.stringify(trie);
+    // console.log(Object.assign(new Trie(), JSON.parse(jsdsf)));
+  }, [trie, hashtable]);
 
   const addStudent = (student: Student): void => {
     addStudentToHashTable(student);
@@ -49,6 +51,7 @@ export const useStudent = () => {
         st = st.next;
       }
     }
+    console.log(studentList);
     dispatch({ type: types.ADD_STUDENT, payload: studentList });
   };
 

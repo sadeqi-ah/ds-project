@@ -13,7 +13,9 @@ const Student: React.FC<StudentProps> = ({ name, photo, studentId }) => {
     <Link to={`/student/${studentId}`}>
       <div className="student-container">
         <div className="photo">
-          <img src={`./../images/student/${photo}`} />
+          <img
+            src={`./../images/student/${photo !== "" ? photo : "template.jpg"}`}
+          />
         </div>
         <div className="information">
           <p>{name}</p>

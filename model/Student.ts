@@ -5,6 +5,14 @@ export interface IStudent {
 }
 
 export class Student implements IStudent {
+  private _photo: string;
+  public get photo(): string {
+    return this._photo;
+  }
+  public set photo(value: string) {
+    this._photo = value;
+  }
+
   private _name: string;
   get name(): string {
     return this._name;
@@ -37,7 +45,14 @@ export class Student implements IStudent {
     this._field = value;
   }
 
-  constructor(name: string, studentId: string, gpa: number, field: string) {
+  constructor(
+    name: string,
+    studentId: string,
+    gpa: number,
+    field: string,
+    photo: string = ""
+  ) {
+    this._photo = photo;
     this._name = name;
     this._studentId = studentId;
     this._gpa = gpa;

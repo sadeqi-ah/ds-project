@@ -12,6 +12,10 @@ const EditStudent: React.FC<RouteComponentProps<matchParams>> = ({ match }) => {
     params: { studentId },
   } = match;
 
+  useEffect(() => {
+    console.log(studentId);
+  });
+
   return (
     <>
       <Back />

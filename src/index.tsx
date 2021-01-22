@@ -11,13 +11,13 @@ document.body.appendChild(mainElement);
 
 const RootComponent = () => {
   return (
-    <HashTableProvider>
-      <TrieProvider>
-        <StudentProvider>
+    <StudentProvider>
+      <HashTableProvider>
+        <TrieProvider>
           <App />
-        </StudentProvider>
-      </TrieProvider>
-    </HashTableProvider>
+        </TrieProvider>
+      </HashTableProvider>
+    </StudentProvider>
   );
 };
 

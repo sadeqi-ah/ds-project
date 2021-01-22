@@ -19,7 +19,7 @@ const StudentList: React.FC = () => {
         key={student.studentId}
         name={student.name}
         studentId={student.studentId}
-        photo={"1.jpg"}
+        photo={student.photo}
       />
     ));
   };
