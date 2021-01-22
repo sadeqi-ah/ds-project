@@ -58,12 +58,30 @@ app.allowRendererProcessReuse = true;
 
 ipcMain.on("upload_photo", (event, photo, studentId) => {
   const profileDir = path.join(__dirname, "..", "src", "images", "student");
-  const extension = photo.split(".").pop();
+  let extension = photo.split(".").pop();
+  if (extension === "jpg") extension = "jpeg";
   const fileName = `${studentId}.${extension}`;
   const filePath = path.join(profileDir, fileName);
   if (fs.existsSync(filePath)) {
     fs.unlinkSync(filePath);
   }
   fs.copyFileSync(photo, filePath);
-  console.log(photo, studentId, extension);
+});
+
+ipcMain.on("delete_photo", (event, studentId) => {
+  const profileDir = path.join(
+    __dirname,
+    "..",
+    "src",
+    "images",
+    "student",
+    studentId
+  );
+  if (fs.existsSync(`${profileDir}.jpeg`)) {
+    fs.unlinkSync(`${profileDir}.jpeg`);
+  } else if (fs.existsSync(`${profileDir}.png`)) {
+    fs.unlinkSync(`${profileDir}.png`);
+  } else if (fs.existsSync(`${profileDir}.gif`)) {
+    fs.unlinkSync(`${profileDir}.gif`);
+  }
 });

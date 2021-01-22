@@ -6,6 +6,7 @@ import { useStudent } from "_/hooks/useStudent";
 import { useHistory } from "react-router-dom";
 import { remote } from "electron";
 import { ipcRenderer } from "electron";
+import { stat } from "fs";
 
 type InputsType = {
   photo: {
@@ -61,7 +62,7 @@ const EditableStudent: React.FC<Props> = ({ studentId }) => {
         studentId: oldstudent.studentId,
         gpa: oldstudent.gpa,
         field: oldstudent.field,
-        photo: { url: "" },
+        photo: { url: oldstudent.photo },
       });
     }
   }, []);
@@ -108,7 +109,7 @@ const EditableStudent: React.FC<Props> = ({ studentId }) => {
 
   const submit = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     const isValidStudentId =
-      Boolean(state.studentId) && !checkExist(state.studentId);
+      Boolean(state.studentId) && (!checkExist(state.studentId) || oldstudent);
 
     if (!state.name || !state.field || !isValidStudentId) {
       setError({
@@ -199,10 +200,24 @@ const EditableStudent: React.FC<Props> = ({ studentId }) => {
     }
   };
 
+  const deletePhoto = () => {
+    setstate((prev) => {
+      return {
+        ...prev,
+        photo: {
+          url: "",
+          base64: undefined,
+          extension: undefined,
+        },
+      };
+    });
+    ipcRenderer.send("delete_photo", state.studentId);
+  };
+
   return (
     <div className="add-student-container">
       <div className="photo-sec">
-        <Button color="#EF233C">
+        <Button color="#EF233C" onClick={deletePhoto}>
           <svg
             style={{ width: 12, height: 12 }}
             viewBox="0 0 8 8"

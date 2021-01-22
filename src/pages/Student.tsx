@@ -33,7 +33,11 @@ const StudentPage: React.FC<RouteComponentProps<matchParams>> = ({ match }) => {
       {student && (
         <div className="studetn-page">
           <div className="photo">
-            <img src={`../images/student/1.jpg`} />
+            <img
+              src={`../images/student/${
+                student.photo !== "" ? student.photo : "template.jpg"
+              }`}
+            />
           </div>
           <div className="name">{student.name}</div>
           <div className="box-info">
