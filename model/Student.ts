@@ -67,6 +67,6 @@ export class Student implements IStudent {
       (this._studentId == null ? 0 : stringHashCode(this._studentId));
     hash = 31 * hash + (this._field == null ? 0 : stringHashCode(this._field));
     hash = 31 * hash + this._gpa;
-    return hash;
+    return Math.abs(hash);
   }
 }

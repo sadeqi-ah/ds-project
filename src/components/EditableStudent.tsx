@@ -21,9 +21,18 @@ type InputsType = {
 };
 
 type ErrorType = {
-  name: boolean;
-  studentId: boolean;
-  field: boolean;
+  name: {
+    error: boolean;
+    message?: string;
+  };
+  studentId: {
+    error: boolean;
+    message?: string;
+  };
+  field: {
+    error: boolean;
+    message?: string;
+  };
 };
 
 type Props = {
@@ -50,9 +59,9 @@ const EditableStudent: React.FC<Props> = ({ studentId }) => {
   });
 
   const [error, setError] = useState<ErrorType>({
-    name: false,
-    studentId: false,
-    field: false,
+    name: { error: false },
+    studentId: { error: false },
+    field: { error: false },
   });
 
   useEffect(() => {
@@ -108,22 +117,59 @@ const EditableStudent: React.FC<Props> = ({ studentId }) => {
   };
 
   const submit = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    const isValidStudentId =
-      Boolean(state.studentId) && (!checkExist(state.studentId) || oldstudent);
+    const isExist = checkExist(state.studentId);
 
-    if (!state.name || !state.field || !isValidStudentId) {
+    let errorStudentId = {
+      error: false,
+      message: "",
+    };
+
+    if (state.studentId) {
+      if (!oldstudent) {
+        errorStudentId.error = isExist;
+        errorStudentId.message = isExist ? "This student id exists" : "";
+      } else {
+        if (isExist && state.studentId != oldstudent.studentId) {
+          errorStudentId.error = true;
+          errorStudentId.message = "This student id exists";
+        } else {
+          errorStudentId.error = false;
+          errorStudentId.message = "";
+        }
+      }
+    } else {
+      errorStudentId.error = true;
+      errorStudentId.message = "student id should not be empty!";
+    }
+
+    if (!state.name || !state.field || errorStudentId.error) {
       setError({
-        name: !Boolean(state.name),
-        studentId: !isValidStudentId,
-        field: !Boolean(state.field),
+        name: {
+          error: !Boolean(state.name),
+          message: state.name == "" ? "name should not be empty!" : "",
+        },
+        studentId: {
+          error: errorStudentId.error,
+          message: errorStudentId.message,
+        },
+        field: {
+          error: !Boolean(state.field),
+          message: state.field == "" ? "field should not be empty!" : "",
+        },
       });
       return;
     }
 
     setError({
-      name: false,
-      studentId: false,
-      field: false,
+      name: {
+        error: false,
+      },
+      studentId: {
+        error: false,
+      },
+      field: {
+        error: false,
+      },
     });
     const newStudent = new Student(
       state.name,
@@ -249,16 +295,23 @@ const EditableStudent: React.FC<Props> = ({ studentId }) => {
         <div className="input-s">
           <input
             type="text"
-            className={error.name ? "error" : ""}
+            className={error.name.error ? "error" : ""}
             onChange={nameInputHandler}
             value={state.name}
           />
+          <p className="error-message name">
+            {error.name.message ? error.name.message : ""}
+          </p>
           <input
             type="number"
-            className={error.studentId ? "error" : ""}
+            className={error.studentId.error ? "error" : ""}
             onChange={studentIdInputHandler}
             value={state.studentId ? state.studentId : ""}
           />
+          <p className="error-message studentId">
+            {error.studentId.message ? error.studentId.message : ""}
+          </p>
+
           <input
             type="number"
             onChange={gpaInputHandler}
@@ -266,10 +319,13 @@ const EditableStudent: React.FC<Props> = ({ studentId }) => {
           />
           <input
             type="text"
-            className={error.field ? "error" : ""}
+            className={error.field.error ? "error" : ""}
             onChange={fieldInputHandler}
             value={state.field}
           />
+          <p className="error-message field">
+            {error.field.message ? error.field.message : ""}
+          </p>
         </div>
       </div>
       <Button title="submit" color="#2EC4B6" onClick={submit}>

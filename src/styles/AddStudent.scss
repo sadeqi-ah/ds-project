@@ -40,6 +40,7 @@
         .input-s {
             display: flex;
             flex-direction: column;
+            position: relative;
             input {
                 width: 190px;
                 height: 40px;
@@ -64,6 +65,24 @@
                         background-color: #fde5e8;
                         border: 2px solid #ef233c;
                     }
+                }
+            }
+            .error-message {
+                color: #ef233c;
+                position: absolute;
+                font-size: 10px;
+                left: 10px;
+
+                &.name {
+                    top: 55px;
+                }
+
+                &.studentId {
+                    top: 118px;
+                }
+
+                &.field {
+                    top: 245px;
                 }
             }
         }

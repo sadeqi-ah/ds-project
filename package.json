@@ -36,7 +36,7 @@
     "package": "npm-run-all build package:dist",
     "package:dist": "electron-builder --dir",
     "dist": "electron-builder",
-    "test": "jest"
+    "test": "jest --silent=true"
   },
   "author": "amirhossein sadeqi",
   "license": "ISC",

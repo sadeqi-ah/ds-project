@@ -93,7 +93,7 @@ export class HashTable<T> {
     return null;
   }
 
-  private indexFor(key: number): number {
+  indexFor(key: number): number {
     return key % this.capacity;
   }
 }
