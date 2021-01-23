@@ -6,7 +6,6 @@ import { useStudent } from "_/hooks/useStudent";
 import { useHistory } from "react-router-dom";
 import { remote } from "electron";
 import { ipcRenderer } from "electron";
-import { stat } from "fs";
 
 type InputsType = {
   photo: {
