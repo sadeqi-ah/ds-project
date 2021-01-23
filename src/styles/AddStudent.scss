@@ -32,7 +32,7 @@
             span {
                 line-height: 42px;
                 height: 42px;
-                color: #c8c9cc;
+                color: #a1a0a0;
                 font-size: 14px;
                 margin: 11px 10px;
             }
@@ -45,15 +45,15 @@
                 width: 190px;
                 height: 40px;
                 border-radius: 11px;
-                background-color: #f9fafd;
-                border: 2px solid #f9fafd;
+                background-color: #ffffff;
+                border: 2px solid #efeff0;
                 outline: 0;
                 padding: 0 20px;
                 margin: 10px 0;
                 transition: 0.2s;
 
                 &:focus {
-                    background-color: #ffffff;
+                    background-color: #f5f4f4;
                     border: 2px solid #f0f0f3;
                 }
 
