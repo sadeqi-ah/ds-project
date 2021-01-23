@@ -75,42 +75,14 @@ const EditableStudent: React.FC<Props> = ({ studentId }) => {
     }
   }, []);
 
-  const nameInputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const inputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const target = e.target as HTMLInputElement;
+    let value: any = target.value;
+    if (target.name == "gpa") value = parseFloat(value);
     setstate((prev) => {
       return {
         ...prev,
-        name: target.value,
-      };
-    });
-  };
-
-  const fieldInputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const target = e.target as HTMLInputElement;
-    setstate((prev) => {
-      return {
-        ...prev,
-        field: target.value,
-      };
-    });
-  };
-
-  const gpaInputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const target = e.target as HTMLInputElement;
-    setstate((prev) => {
-      return {
-        ...prev,
-        gpa: parseFloat(target.value),
-      };
-    });
-  };
-
-  const studentIdInputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const target = e.target as HTMLInputElement;
-    setstate((prev) => {
-      return {
-        ...prev,
-        studentId: target.value,
+        [target.name]: value,
       };
     });
   };
@@ -293,18 +265,20 @@ const EditableStudent: React.FC<Props> = ({ studentId }) => {
         </div>
         <div className="input-s">
           <input
+            name="name"
             type="text"
             className={error.name.error ? "error" : ""}
-            onChange={nameInputHandler}
+            onChange={inputHandler}
             value={state.name}
           />
           <p className="error-message name">
             {error.name.message ? error.name.message : ""}
           </p>
           <input
+            name="studentId"
             type="number"
             className={error.studentId.error ? "error" : ""}
-            onChange={studentIdInputHandler}
+            onChange={inputHandler}
             value={state.studentId ? state.studentId : ""}
           />
           <p className="error-message studentId">
@@ -312,14 +286,16 @@ const EditableStudent: React.FC<Props> = ({ studentId }) => {
           </p>
 
           <input
+            name="gpa"
             type="number"
-            onChange={gpaInputHandler}
+            onChange={inputHandler}
             value={state.gpa ? state.gpa : ""}
           />
           <input
+            name="field"
             type="text"
             className={error.field.error ? "error" : ""}
-            onChange={fieldInputHandler}
+            onChange={inputHandler}
             value={state.field}
           />
           <p className="error-message field">
