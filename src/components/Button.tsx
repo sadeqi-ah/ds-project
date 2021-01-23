@@ -15,7 +15,7 @@ const Button: React.FC<ButtonProps> = ({ children, title, color, onClick }) => {
       style={{
         fill: color,
         color: color,
-        padding: `10px ${title ? 20 : 10}px`,
+        padding: `${title ? "10px" : 0} ${title ? "20px" : 0}`,
       }}
     >
       <span className="bc" style={{ background: color }}></span>

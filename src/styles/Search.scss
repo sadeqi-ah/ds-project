@@ -7,8 +7,8 @@
         svg {
             position: absolute;
             width: 20px;
-            fill: #ffffff;
-            border: #b7bcc5;
+            fill: #b9bac4;
+            border: #b9bac4;
             left: 45px;
             top: 51px;
         }
@@ -19,8 +19,8 @@
             border: 0;
             outline: 0;
             border-radius: 100px;
-            background-color: #f9fafd;
-            border: 2px solid #f9fafd;
+            background-color: #f5f6f7;
+            border: 2px solid #f5f6f7;
             display: block;
             margin: auto;
             font-size: 15px;
@@ -28,7 +28,7 @@
             transition: 0.2s;
 
             &::placeholder {
-                color: #b7bcc5;
+                color: #b9bac4;
             }
 
             &:focus {
