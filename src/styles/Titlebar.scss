@@ -1,7 +1,6 @@
 .titlebar {
     height: 30px;
     padding: 0 10px;
-    // background-color: rgba(0, 0, 0, 0.123);
     -webkit-app-region: drag;
 
     .right-sec {
@@ -13,7 +12,7 @@
         .close-btn {
             width: 30px;
             height: 30px;
-            fill: #ebedf0;
+            fill: #d8d9db;
             display: flex;
             justify-content: center;
             cursor: pointer;
@@ -31,7 +30,7 @@
         .minimize-btn {
             width: 30px;
             height: 30px;
-            fill: #ebedf0;
+            fill: #d8d9db;
             display: flex;
             justify-content: center;
             align-items: center;
