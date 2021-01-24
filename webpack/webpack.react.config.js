@@ -8,7 +8,6 @@ module.exports = {
     resolve: {
         alias: {
             _: path.resolve(rootPath, 'src'),
-            _public: path.resolve(rootPath, 'public'),
         },
         extensions: ['.tsx', '.ts', '.js', '.scss'],
         mainFields: ['main', 'module', 'browser']
