@@ -10,8 +10,7 @@
     "strict": true,
     "esModuleInterop": true,
     "paths": {
-      "_/*": ["./src/*"],
-      "_public/*": ["./public/*"]
+      "_/*": ["./src/*"]    
     }
   },
   "exclude": ["node_modules", "**/*.spec.ts"]
