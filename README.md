@@ -1,4 +1,4 @@
-# Ds Project
+# DS Project
 
 A student manager application using React and Electron for my Data Structure Course final project.
 
