@@ -8,19 +8,9 @@ class TrieNode {
     this.children = new Array(10);
     this.hash = -1;
   }
-
-  // isLeaf() {
-  //   for (let i = 0; i < 10; i++) {
-  //     if (this.children) {
-  //       return false;
-  //     }
-  //   }
-  //   return true;
-  // }
 }
 
 export class Trie {
-  // static UNIT_NUMBER_COUNT: number = 10;
   private root: TrieNode;
 
   constructor() {

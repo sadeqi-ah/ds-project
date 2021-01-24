@@ -1,5 +1,7 @@
 # ds project
 
+## install
+
 first run `npm install`
 
 ## run

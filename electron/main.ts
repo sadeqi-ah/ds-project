@@ -1,7 +1,7 @@
 import { app, BrowserWindow, ipcMain } from "electron";
 import * as path from "path";
 import * as fs from "fs";
-import * as url from "url";
+// import * as url from "url";
 
 let mainWindow: Electron.BrowserWindow | null;
 
@@ -10,7 +10,6 @@ function createWindow() {
     width: 400,
     height: 600,
     frame: false,
-    // transparent: true,
     resizable: false,
     webPreferences: {
       nodeIntegration: true,
@@ -18,18 +17,18 @@ function createWindow() {
     },
   });
 
-  if (process.env.NODE_ENV === "development") {
-    mainWindow.loadURL("http://localhost:4000");
-    mainWindow.webContents.openDevTools();
-  } else {
-    mainWindow.loadURL(
-      url.format({
-        pathname: path.join(__dirname, "renderer/index.html"),
-        protocol: "file:",
-        slashes: true,
-      })
-    );
-  }
+  // if (process.env.NODE_ENV === "development") {
+  mainWindow.loadURL("http://localhost:4000");
+  // mainWindow.webContents.openDevTools();
+  // } else {
+  //   mainWindow.loadURL(
+  //     url.format({
+  //       pathname: path.join(__dirname, "renderer/index.html"),
+  //       protocol: "file:",
+  //       slashes: true,
+  //     })
+  //   );
+  // }
 
   mainWindow.on("close", function (e) {
     e.preventDefault();
