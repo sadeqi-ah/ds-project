@@ -1,16 +1,13 @@
-# ds project
+# Ds Project
 
-## install
+## Install Dependencies
 
-first run `npm install`
+`$ npm install`
 
-## run
+## Run
 
-then run `npm run dev`
+`$ npm run dev`
 
-## screenshots
+## Screenshots
 
-![home page](./screenshots/screenshot1.png)
-![student page](./screenshots/screenshot2.png)
-![add student page](./screenshots/screenshot3.png)
-![input validation](./screenshots/screenshot4.png)
+![home page](./screenshots/Frame.png)
