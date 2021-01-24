@@ -43,9 +43,9 @@ module.exports = {
         contentBase: path.join(rootPath, 'dist', 'renderer'),
         historyApiFallback: true,
         compress: true,
-        hot: false,
-        watchContentBase: false,
-        inline: false,
+        hot: true,
+        watchContentBase: true,
+        inline: true,
         host: '0.0.0.0',
         port: 4000,
         publicPath: '/'

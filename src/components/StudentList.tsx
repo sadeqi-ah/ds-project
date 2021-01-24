@@ -25,7 +25,7 @@ const StudentList: React.FC = () => {
   };
 
   return (
-    <ScrollLayout width={"100%"} height={"calc(100vh - 100px)"}>
+    <ScrollLayout width={"100%"} height={"calc(100vh - 110px)"}>
       {convertStudentsToNode()}
     </ScrollLayout>
   );
