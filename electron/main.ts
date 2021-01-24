@@ -55,14 +55,16 @@ app.on("activate", () => {
 app.on("ready", createWindow);
 app.allowRendererProcessReuse = true;
 
-ipcMain.on("upload_photo", (event, photo, studentId) => {
+ipcMain.on("upload_photo", (event, photo, studentId, oldStudentId) => {
   const profileDir = path.join(__dirname, "..", "src", "images", "student");
   let extension = photo.split(".").pop();
   if (extension === "jpg") extension = "jpeg";
+  const fileNameOld = `${oldStudentId ? oldStudentId : studentId}.${extension}`;
   const fileName = `${studentId}.${extension}`;
+  const filePathOld = path.join(profileDir, fileNameOld);
   const filePath = path.join(profileDir, fileName);
-  if (fs.existsSync(filePath)) {
-    fs.unlinkSync(filePath);
+  if (fs.existsSync(filePathOld)) {
+    fs.unlinkSync(filePathOld);
   }
   fs.copyFileSync(photo, filePath);
 });

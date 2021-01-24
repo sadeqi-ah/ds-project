@@ -14,7 +14,9 @@ const Student: React.FC<StudentProps> = ({ name, photo, studentId }) => {
       <div className="student-container">
         <div className="photo">
           <img
-            src={`./../images/student/${photo !== "" ? photo : "template.jpg"}`}
+            src={`./../images/student/${
+              photo !== "" ? photo : "template.jpg"
+            }?${Date.now()}`}
           />
         </div>
         <div className="information">

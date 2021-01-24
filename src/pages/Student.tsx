@@ -36,7 +36,7 @@ const StudentPage: React.FC<RouteComponentProps<matchParams>> = ({ match }) => {
             <img
               src={`../images/student/${
                 student.photo !== "" ? student.photo : "template.jpg"
-              }`}
+              }?${Date.now()}`}
             />
           </div>
           <div className="name">{student.name}</div>
