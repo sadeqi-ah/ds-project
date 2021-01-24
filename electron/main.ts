@@ -59,13 +59,20 @@ ipcMain.on("upload_photo", (event, photo, studentId, oldStudentId) => {
   const profileDir = path.join(__dirname, "..", "src", "images", "student");
   let extension = photo.split(".").pop();
   if (extension === "jpg") extension = "jpeg";
-  const fileNameOld = `${oldStudentId ? oldStudentId : studentId}.${extension}`;
   const fileName = `${studentId}.${extension}`;
-  const filePathOld = path.join(profileDir, fileNameOld);
   const filePath = path.join(profileDir, fileName);
-  if (fs.existsSync(filePathOld)) {
-    fs.unlinkSync(filePathOld);
-  }
+
+  const regexString = `${
+    oldStudentId ? oldStudentId : studentId
+  }.(jpg|jpeg|png|gif)`;
+  const regex = new RegExp(regexString, "i");
+  fs.readdirSync(profileDir)
+    .filter((f) => regex.test(f))
+    .map((f) => {
+      console.log(path.join(profileDir, f));
+      return fs.unlinkSync(path.join(profileDir, f));
+    });
+
   fs.copyFileSync(photo, filePath);
 });
 
